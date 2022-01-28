@@ -1,6 +1,7 @@
 """Connector and methods accessing S3"""
 import os
 import logging
+import profile
 from io import StringIO, BytesIO
 
 import boto3
@@ -29,6 +30,7 @@ class S3BucketConnector():
         self._s3 = self.session.resource(service_name='s3', endpoint_url=endpoint_url)
         self._bucket = self._s3.Bucket(bucket)
 
+    @profile
     def list_files_in_prefix(self, prefix: str):
         """
         listing all files with a prefix on the S3 bucket
@@ -41,6 +43,7 @@ class S3BucketConnector():
         files = [obj.key for obj in self._bucket.objects.filter(Prefix=prefix)]
         return files
 
+    @profile
     def read_csv_to_df(self, key: str, encoding: str = 'utf-8', sep: str = ','):
         """
         reading a csv file from the S3 bucket and returning a dataframe
@@ -58,6 +61,7 @@ class S3BucketConnector():
         data_frame = pd.read_csv(data, sep=sep)
         return data_frame
 
+    @profile
     def write_df_to_s3(self, data_frame: pd.DataFrame, key: str, file_format: str):
         """
         writing a Pandas DataFrame to S3
@@ -82,6 +86,7 @@ class S3BucketConnector():
         'supported to be written to s3!', file_format)
         raise WrongFormatException
 
+    @profile
     def __put_object(self, out_buffer: StringIO or BytesIO, key: str):
         """
         Helper function for self.write_df_to_s3()

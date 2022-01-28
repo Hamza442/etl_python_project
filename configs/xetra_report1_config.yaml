@@ -1,7 +1,7 @@
 # configuration specific to creating s3 connections
 s3:
-  access_key: ''
-  secret_key: ''
+  access_key: 'AKIAR7554OTXIHAAMCD6'
+  secret_key: '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'
   src_endpoint_url: 'https://s3.amazonaws.com'
   src_bucket: 'deutsche-boerse-xetra-pds'
   trg_endpoint_url: 'https://s3.amazonaws.com'
